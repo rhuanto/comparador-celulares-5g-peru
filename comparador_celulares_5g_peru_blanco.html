@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comparador 5G — Cámara, batería y resistencia</title>
+<style>
+:root{
+  --bg:#f6f7fb;--panel:#ffffff;--panel2:#f1f4f9;--text:#18202c;--muted:#667085;
+  --line:#dfe4ec;--accent:#5b5bd6;--good:#159957;--warn:#b7791f;--bad:#d64545;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#ffffff 0,#f6f7fb 260px),var(--bg);color:var(--text);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.shell{max-width:1380px;margin:auto;padding:24px}
+.topbar{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap}
+.brand{font-weight:850;letter-spacing:-.03em;font-size:22px}
+.brand span{color:#a99bff}
+.stamp{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:8px 11px;border-radius:999px;background:#ffffff}
+.hero{background:linear-gradient(135deg,#ffffff,#f7f8fc 55%,#f3f1ff);border:1px solid var(--line);border-radius:26px;padding:26px;
+display:grid;grid-template-columns:1.3fr .7fr;gap:24px;margin-bottom:20px;overflow:hidden}
+.hero h1{font-size:clamp(30px,4vw,54px);line-height:.96;letter-spacing:-.05em;margin:0 0 14px}
+.hero p{color:#5f6b7a;max-width:760px;line-height:1.55;margin:0}
+.profile{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-content:center}
+.profile div{background:#ffffff;border:1px solid #e2e7ef;border-radius:16px;padding:14px}
+.profile b{display:block;font-size:18px;color:#1f2937;margin-bottom:2px}.profile span{color:var(--muted);font-size:12px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 20px}
+button,.chip{border:1px solid var(--line);background:#ffffff;color:#2b3440;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700}
+button.active,.chip.active{background:#ece9ff;border-color:#7c6fe3;color:#4137a6}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:linear-gradient(180deg,#ffffff,#fbfcfe);border:1px solid var(--line);border-radius:24px;overflow:hidden;position:relative}
+.card.hidden{display:none}
+.cardhead{display:grid;grid-template-columns:215px 1fr;gap:18px;padding:20px}
+.visual{background:linear-gradient(145deg,#f0f3f8,#e8edf5);min-height:260px;border-radius:20px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.visual:after{content:"perfil ilustrativo";position:absolute;bottom:10px;left:12px;font-size:10px;color:#788299}
+.phone-set{display:flex;align-items:flex-end;gap:9px;transform:scale(.9)}
+.phone{width:92px;height:190px;border-radius:25px;border:4px solid #3a3f4b;background:#0a0d14;position:relative;box-shadow:0 18px 40px #0008}
+.phone.front{background:linear-gradient(155deg,#1b2230 0%,#d7b36a 38%,#6f4932 55%,#11141d 82%)}
+.phone.front:before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:7px;height:7px;background:#06080c;border-radius:50%}
+.phone.back.xiaomi{background:linear-gradient(160deg,#d7d0c4,#8d8a83)}
+.phone.back.plus{background:linear-gradient(160deg,#3e434d,#191c22)}
+.phone.back.samsung{background:linear-gradient(160deg,#d4d0c7,#777d84)}
+.camera-square{position:absolute;top:13px;left:13px;width:59px;height:56px;border-radius:17px;background:#bdb7aeaa;border:1px solid #fff8;display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px}
+.camera-square i,.cam-pill i,.camrings i{background:radial-gradient(circle at 35% 35%,#5b6876 0,#10151e 33%,#030508 65%);border:1px solid #697383;border-radius:50%}
+.cam-pill{position:absolute;top:14px;left:13px;width:39px;height:75px;border-radius:18px;background:#20242b;display:flex;flex-direction:column;gap:6px;padding:6px}
+.cam-pill i{flex:1}
+.camrings{position:absolute;top:18px;left:14px;display:flex;flex-direction:column;gap:8px}.camrings i{width:24px;height:24px;box-shadow:0 0 0 2px #dfe2e7}
+.plusmod{position:absolute;top:12px;left:12px;width:63px;height:66px;border-radius:18px;background:#242933;border:1px solid #667080;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:7px}
+.plusmod i{border-radius:50%;background:radial-gradient(circle,#6c7785 0,#141922 36%,#05070a 70%);border:1px solid #8c96a2}
+.cardtitle{font-size:25px;line-height:1.05;letter-spacing:-.035em;margin:3px 0 6px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:12px}
+.price{font-size:34px;font-weight:900;letter-spacing:-.04em}.price small{font-size:13px;color:var(--muted);font-weight:650;letter-spacing:0}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.tag{font-size:11px;font-weight:800;padding:7px 9px;border-radius:999px;background:#f2f4f8;border:1px solid #dce2ea}
+.tag.green{background:#e8f7ef;border-color:#b9e7cd;color:#117a43}.tag.gold{background:#fff5dd;border-color:#f0d898;color:#9a650e}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.quick div{background:#f8fafc;border:1px solid #e2e7ef;border-radius:12px;padding:10px}
+.quick b{display:block;font-size:14px;color:#1f2937}.quick span{font-size:10px;color:#8f99ad}
+.body{padding:0 20px 20px}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0 14px}
+.f{padding:10px 12px;background:#f8fafc;border:1px solid #e2e7ef;border-radius:14px;font-size:12px;line-height:1.35}
+.f b{display:block;color:#1f2937;margin-bottom:3px}.f span{color:#9ea7ba}
+.shopbox{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.shop{display:grid;grid-template-columns:1fr auto auto;gap:9px;align-items:center;padding:9px 0;border-bottom:1px dashed #dfe4ec}
+.shop:last-child{border-bottom:none}.store b{display:block;font-size:13px}.store span{font-size:10px;color:var(--muted)}
+.sprice{font-weight:900}.go{font-size:11px;padding:7px 9px;border:1px solid #cfd7e3;border-radius:9px;background:#ffffff}
+.actions{display:flex;gap:10px;margin-top:12px}.actions button{border-radius:12px;flex:1}
+.compare{background:#ece9ff;border-color:#7c6fe3;color:#4137a6}.specs{background:#ffffff}
+.section-title{display:flex;justify-content:space-between;align-items:end;margin:34px 0 12px}
+.section-title h2{font-size:28px;margin:0;letter-spacing:-.035em}.section-title p{margin:0;color:var(--muted);font-size:12px}
+.note{background:#ffffff;border:1px solid #dfe4ec;border-radius:18px;padding:16px;color:#b8c0cf;font-size:13px;line-height:1.5}
+footer{color:#7a8493;font-size:11px;padding:24px 2px 90px;line-height:1.55}
+.bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;background:#fffffff2;backdrop-filter:blur(14px);border:1px solid #d8dee8;border-radius:18px;padding:10px 12px;display:none;align-items:center;gap:14px;box-shadow:0 18px 55px #20304026}
+.bar.show{display:flex}.bar strong{font-size:13px}.bar button{border-radius:11px;background:#5b5bd6;color:white;border:0}
+.modal{position:fixed;inset:0;background:#17203399;z-index:50;display:none;padding:26px;overflow:auto}.modal.show{display:block}
+.modalbox{max-width:1180px;margin:auto;background:#ffffff;border:1px solid #dfe4ec;border-radius:24px;overflow:hidden}
+.modalhead{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid #e3e8ef}
+.modalhead h2{margin:0}.close{width:40px;height:40px;padding:0;border-radius:50%}
+.tablewrap{overflow:auto}.ctable{width:100%;border-collapse:collapse;min-width:780px}.ctable th,.ctable td{padding:13px 15px;border-bottom:1px solid #e6eaf0;text-align:left;font-size:12px;vertical-align:top}.ctable th{position:sticky;top:0;background:#f5f7fb;z-index:2}.ctable td:first-child{color:#9ba5b8;font-weight:800;width:170px}
+.good{color:#67e39c;font-weight:800}.warn{color:#ffc563;font-weight:800}
+@media(max-width:920px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.cardhead{grid-template-columns:170px 1fr}.visual{min-height:220px}.shell{padding:14px}}
+@media(max-width:580px){.cardhead{grid-template-columns:1fr}.visual{min-height:220px}.quick{grid-template-columns:1fr 1fr 1fr}.features{grid-template-columns:1fr}.profile{grid-template-columns:1fr 1fr}.shop{grid-template-columns:1fr auto}.go{grid-column:1/-1;text-align:center}.bar{width:calc(100% - 24px);justify-content:space-between}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">Comparador <span>5G</span> • cámara + batería + resistencia</div>
+    <div class="stamp">Precios consultados: 28 sep 2026 · Perú</div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>Los celulares que sí encajan con su uso.</h1>
+      <p>Perfil: muchas fotos y video para redes, WhatsApp/Facebook/TikTok, edición de reels e historias, streaming y Bluetooth; no necesita potencia gaming. Prioridad alta a batería, resistencia a caídas, doble SIM y una pantalla que inspire confianza a largo plazo.</p>
+    </div>
+    <div class="profile">
+      <div><b>≈ S/ 1,500</b><span>presupuesto objetivo</span></div>
+      <div><b>2 SIM</b><span>requisito importante</span></div>
+      <div><b>45 W+</b><span>carga suficiente</span></div>
+      <div><b>256–512 GB</b><span>fotos, reels y cachés</span></div>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button class="active" data-filter="all">Todos</button>
+    <button data-filter="xiaomi">Xiaomi</button>
+    <button data-filter="samsung">Samsung</button>
+    <button data-filter="budget">≤ S/ 1,500</button>
+    <button data-filter="512">512 GB</button>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <div class="section-title">
+    <div><h2>Cómo leer los precios</h2><p>El vendedor importa tanto como el monto.</p></div>
+  </div>
+  <div class="note">
+    <b>Venta directa</b> significa que Ripley/EFE/Samsung aparece como vendedor. <b>Marketplace</b> significa que la compra ocurre dentro de la plataforma, pero la garantía y despacho pueden depender de un tercero. En Mercado Libre la ficha de catálogo puede cambiar automáticamente de vendedor; antes de pagar hay que volver a comprobar el panel derecho.
+  </div>
+
+  <footer>
+    Especificaciones base contrastadas con Xiaomi Perú/Latinoamérica y Samsung Perú. Los precios son referencias puntuales y pueden cambiar por stock, color, tarjeta o vendedor. En el Galaxy A56 se muestra la oferta de Ripley a S/1,399 aunque actualmente figura agotada/próxima disponibilidad; se incluye porque es el Samsung alternativo más interesante si repone stock. Las ilustraciones de los equipos son esquemáticas y no están a escala.
+  </footer>
+</div>
+
+<div id="bar" class="bar"><strong id="barText">0 seleccionados</strong><button onclick="openCompare()">Comparar ahora</button></div>
+
+<div id="modal" class="modal">
+  <div class="modalbox">
+    <div class="modalhead"><h2>Comparación lado a lado</h2><button class="close" onclick="closeCompare()">×</button></div>
+    <div id="compareTable" class="tablewrap"></div>
+  </div>
+</div>
+
+<script>
+const phones = [
+{
+ id:'rn15pro', brand:'xiaomi', name:'Redmi Note 15 Pro 5G', variant:'8 GB + 512 GB',
+ price:1369, visual:'xiaomi', fit:'Muy alto',
+ specs:{
+  'Procesador':'Dimensity 7400-Ultra · 4 nm',
+  'Pantalla':'6.83″ AMOLED 1.5K · 120 Hz · 3200 nits pico',
+  'Cámara trasera':'200 MP OIS (1/1.4″) + 8 MP ultra gran angular',
+  'Selfie':'20 MP',
+  'Video':'4K 30 fps',
+  'Batería':'6580 mAh',
+  'Carga':'45 W · cargador incluido',
+  'Memoria':'8 GB RAM + 512 GB',
+  'Resistencia':'Gorilla Glass Victus 2 · IP66/IP68/IP69/IP69K · SGS caída 2.5 m*',
+  'SIM':'2 nano-SIM o nano-SIM + eSIM',
+  'Software':'HyperOS 2 / Android 15 de salida'
+ },
+ tags:[['512 GB','green'],['200 MP OIS',''],['Victus 2','gold']],
+ quick:[['6580 mAh','batería'],['45 W','carga'],['2 SIM','físicas']],
+ shops:[
+  {store:'Mercado Libre · CELIVERYPERU',detail:'Marketplace · +100 ventas en tu captura',price:'S/ 1,369',url:'https://www.mercadolibre.com.pe/redmi-note-15-pro-5g-512-gb-titanio/p/MPE64310143?product_trigger_id=MPE64310144&picker=true&quantity=1'},
+  {store:'Ripley',detail:'Venta directa · disponible',price:'S/ 1,479',url:'https://simple.ripley.com.pe/celular-xiaomi-redmi-note-15-pro-5g-512-gb-2065369069769'},
+  {store:'Tiendas EFE',detail:'Venta directa',price:'S/ 1,499',url:'https://www.efe.com.pe/efe/celulares-android.html?brand=Xiaomi&memoria_interna=512GB'}
+ ],
+ official:'https://www.mi.com/pe/product/redmi-note-15-pro-5g/'
+},
+{
+ id:'rn15plus', brand:'xiaomi', name:'Redmi Note 15 Pro+ 5G', variant:'8/256 o 12/512 GB',
+ price:1369, visual:'plus', fit:'Alto',
+ specs:{
+  'Procesador':'Snapdragon 7s Gen 4 · 4 nm',
+  'Pantalla':'6.83″ AMOLED 1.5K · 120 Hz · Victus 2',
+  'Cámara trasera':'200 MP OIS (1/1.4″) + 8 MP ultra gran angular',
+  'Selfie':'32 MP',
+  'Video':'4K 30 fps',
+  'Batería':'6500 mAh',
+  'Carga':'100 W',
+  'Memoria':'8/256 en oferta ML · 12/512 en retail directo',
+  'Resistencia':'Gorilla Glass Victus 2 · IP66/IP68/IP69/IP69K',
+  'SIM':'Dual SIM según variante global/Perú',
+  'Software':'HyperOS'
+ },
+ tags:[['100 W','green'],['32 MP selfie',''],['200 MP OIS','gold']],
+ quick:[['6500 mAh','batería'],['100 W','carga'],['32 MP','selfie']],
+ shops:[
+  {store:'Mercado Libre · ONLINE SHOP',detail:'Marketplace · MercadoLíder +10 mil · 8/256 visto en tu captura',price:'S/ 1,369',url:'https://www.mercadolibre.com.pe/xiaomi-redmi-note-15-pro-5g-683-256gb-8gb-ram-camara-200mpx-black/p/MPE64315367'},
+  {store:'Ripley',detail:'Venta directa · 12/512',price:'S/ 1,699',url:'https://simple.ripley.com.pe/celular-xiaomi-redmi-note-15-pro-5g-512-gb-2065369069806'},
+  {store:'Tiendas EFE',detail:'Venta directa · 12/512',price:'S/ 1,899',url:'https://www.efe.com.pe/efe/celulares-android.html?brand=Xiaomi&memoria_interna=512GB'}
+ ],
+ official:'https://www.mi.com/pe/product/redmi-note-15-pro-plus-5g/specs/'
+},
+{
+ id:'a37', brand:'samsung', name:'Samsung Galaxy A37 5G', variant:'8 GB + 256 GB',
+ price:1399, visual:'samsungA37', fit:'Alto',
+ specs:{
+  'Procesador':'Exynos 1480 (ficha retail Perú)',
+  'Pantalla':'6.7″ Super AMOLED FHD+ · 120 Hz',
+  'Cámara trasera':'50 MP OIS + 8 MP ultra gran angular + 5 MP macro',
+  'Selfie':'12 MP · Super HDR en video',
+  'Video':'4K 30 fps',
+  'Batería':'5000 mAh',
+  'Carga':'45 W',
+  'Memoria':'8 GB RAM + 256 GB',
+  'Resistencia':'Gorilla Glass Victus+ · IP68',
+  'SIM':'SIM 1 + SIM 2 / SIM + eSIM / dual eSIM',
+  'Software':'6 generaciones de SO + 6 años de seguridad'
+ },
+ tags:[['IP68','green'],['6 años soporte',''],['Victus+','gold']],
+ quick:[['5000 mAh','batería'],['45 W','carga'],['2 SIM','físicas']],
+ shops:[
+  {store:'Ripley',detail:'Venta directa · disponible',price:'S/ 1,399',url:'https://simple.ripley.com.pe/celular-samsung-galaxy-a37-5g-256gb-2065371037749'},
+  {store:'Samsung oficial en Ripley',detail:'Tienda oficial Samsung',price:'S/ 1,579–1,619',url:'https://simple.ripley.com.pe/celular-samsung-galaxy-galaxy-a37-5g-256-gb-dark-green-sm-a376bdgfltp-pmp20001417037'},
+  {store:'Tiendas EFE',detail:'Venta directa',price:'≈ S/ 1,539',url:'https://www.efe.com.pe/galaxy-a37-5g-256gb-8gb-charcoal-a37-5g-256-8cha.html'}
+ ],
+ official:'https://www.samsung.com/pe/smartphones/galaxy-a/galaxy-a37-5g-awesome-graygreen-256gb-sm-a376bdgfltp/'
+},
+{
+ id:'a56', brand:'samsung', name:'Samsung Galaxy A56 5G', variant:'8 GB + 256 GB',
+ price:1399, visual:'samsungA56', fit:'Muy interesante si vuelve stock',
+ specs:{
+  'Procesador':'Exynos 1580',
+  'Pantalla':'6.7″ Super AMOLED FHD+ · 120 Hz',
+  'Cámara trasera':'50 MP OIS + 12 MP ultra gran angular + 5 MP macro',
+  'Selfie':'12 MP',
+  'Video':'4K 30 fps',
+  'Batería':'5000 mAh',
+  'Carga':'45 W',
+  'Memoria':'8 GB RAM + 256 GB',
+  'Resistencia':'Victus+ delante y detrás · marco metálico · IP67',
+  'SIM':'SIM 1 + SIM 2 / SIM + eSIM / dual eSIM',
+  'Software':'6 generaciones de SO + 6 años de seguridad'
+ },
+ tags:[['12 MP ultra-wide','green'],['Exynos 1580',''],['Victus+ x2','gold']],
+ quick:[['5000 mAh','batería'],['45 W','carga'],['2 SIM','físicas']],
+ shops:[
+  {store:'Ripley',detail:'Venta directa · precio visto, ahora agotado',price:'S/ 1,399',url:'https://simple.ripley.com.pe/celular-samsung-galaxy-a56-5g-256gb-2065354627837p'},
+  {store:'Falabella · Corporación Portal',detail:'Marketplace · stock variable',price:'S/ 1,619',url:'https://www.falabella.com.pe/falabella-pe/product/145076725/Celular-Samsung-Galaxy-A56-5G-256GB-8GB-RAM-GRIS-CLARO'}
+ ],
+ official:'https://www.samsung.com/pe/smartphones/galaxy-a/galaxy-a56-5g-awesome-pink-256gb-sm-a566elifltp/'
+}
+];
+
+const selected = new Set();
+
+function phoneVisual(type){
+ let backClass='back samsung', cams='<div class="camrings"><i></i><i></i><i></i></div>';
+ if(type==='xiaomi'){backClass='back xiaomi'; cams='<div class="camera-square"><i></i><i></i><i></i><i></i></div>'}
+ if(type==='plus'){backClass='back plus'; cams='<div class="plusmod"><i></i><i></i><i></i><i></i></div>'}
+ if(type==='samsungA37'){cams='<div class="cam-pill"><i></i><i></i><i></i></div>'}
+ return `<div class="phone-set"><div class="phone front"></div><div class="phone ${backClass}">${cams}</div></div>`;
+}
+
+function card(p){
+ const minPrice = Math.min(...p.shops.map(s=>parseInt(s.price.replace(/\D/g,''))||99999));
+ return `<article class="card" data-brand="${p.brand}" data-price="${p.price}" data-storage="${p.specs['Memoria'].includes('512')?'512':'256'}">
+  <div class="cardhead">
+    <div class="visual">${phoneVisual(p.visual)}</div>
+    <div>
+      <div class="sub">${p.brand==='xiaomi'?'Xiaomi / Redmi':'Samsung Galaxy'} · 5G</div>
+      <div class="cardtitle">${p.name}</div>
+      <div class="sub">${p.variant}</div>
+      <div class="price">desde S/ ${p.price.toLocaleString('es-PE')} <small>según tienda/variante</small></div>
+      <div class="tags">${p.tags.map(t=>`<span class="tag ${t[1]}">${t[0]}</span>`).join('')}</div>
+      <div class="quick">${p.quick.map(q=>`<div><b>${q[0]}</b><span>${q[1]}</span></div>`).join('')}</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="features">
+      <div class="f"><b>Cámara</b><span>${p.specs['Cámara trasera']}</span></div>
+      <div class="f"><b>Pantalla / protección</b><span>${p.specs['Pantalla']} · ${p.specs['Resistencia']}</span></div>
+      <div class="f"><b>Memoria</b><span>${p.specs['Memoria']}</span></div>
+      <div class="f"><b>SIM</b><span>${p.specs['SIM']}</span></div>
+    </div>
+    <div class="shopbox">
+      ${p.shops.map(s=>`<div class="shop">
+        <div class="store"><b>${s.store}</b><span>${s.detail}</span></div>
+        <div class="sprice">${s.price}</div>
+        <a class="go" target="_blank" rel="noopener" href="${s.url}">Abrir tienda ↗</a>
+      </div>`).join('')}
+    </div>
+    <div class="actions">
+      <button class="compare" onclick="toggleCompare('${p.id}',this)">＋ Comparar</button>
+      <a class="go specs" target="_blank" rel="noopener" href="${p.official}" style="flex:1;text-align:center;padding:11px">Ficha oficial ↗</a>
+    </div>
+  </div>
+ </article>`;
+}
+
+document.getElementById('grid').innerHTML = phones.map(card).join('');
+
+document.querySelectorAll('.controls button').forEach(btn=>{
+ btn.onclick=()=>{
+   document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const f=btn.dataset.filter;
+   document.querySelectorAll('.card').forEach(c=>{
+     let ok = f==='all' || c.dataset.brand===f || (f==='budget' && +c.dataset.price<=1500) || (f==='512' && c.dataset.storage==='512');
+     c.classList.toggle('hidden',!ok);
+   });
+ };
+});
+
+function toggleCompare(id,btn){
+ if(selected.has(id)){selected.delete(id);btn.textContent='＋ Comparar';btn.classList.remove('active')}
+ else{
+   if(selected.size>=3){alert('Puedes comparar hasta 3 equipos a la vez.');return}
+   selected.add(id);btn.textContent='✓ Seleccionado';btn.classList.add('active')
+ }
+ updateBar();
+}
+function updateBar(){
+ const bar=document.getElementById('bar');document.getElementById('barText').textContent=`${selected.size} seleccionado${selected.size===1?'':'s'}`;
+ bar.classList.toggle('show',selected.size>0);
+}
+function openCompare(){
+ const chosen=phones.filter(p=>selected.has(p.id));
+ if(!chosen.length)return;
+ const rows=['Precio objetivo','Procesador','Pantalla','Cámara trasera','Selfie','Video','Batería','Carga','Memoria','Resistencia','SIM','Software'];
+ let html='<table class="ctable"><thead><tr><th>Dato</th>'+chosen.map(p=>`<th>${p.name}<br><span style="color:#8993a6;font-weight:600">${p.variant}</span></th>`).join('')+'</tr></thead><tbody>';
+ rows.forEach(r=>{
+   html+='<tr><td>'+r+'</td>'+chosen.map(p=>{
+     let v=r==='Precio objetivo'?'desde S/ '+p.price.toLocaleString('es-PE'):p.specs[r]||'—';
+     return `<td>${v}</td>`;
+   }).join('')+'</tr>'
+ });
+ html+='</tbody></table>';
+ document.getElementById('compareTable').innerHTML=html;
+ document.getElementById('modal').classList.add('show');
+ document.body.style.overflow='hidden';
+}
+function closeCompare(){document.getElementById('modal').classList.remove('show');document.body.style.overflow='';}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeCompare()});
+</script>
+</body>
+</html>
